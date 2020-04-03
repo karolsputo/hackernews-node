@@ -6,6 +6,11 @@ let links = [
     url: "www.howtographql.com",
     description: "Fullstack tutorial for GraphQL",
   },
+  {
+    id: "link-1",
+    url: "www.google.com",
+    description: "Search engine.",
+  },
 ];
 
 let idCount = links.length;
@@ -27,7 +32,21 @@ const resolvers = {
       return link;
     },
     updateLink: (parent, args) => {
-      return null;
+      const link = links.find((link) => args.id === link.id);
+      const index = links.indexOf(link);
+      const updatedLink = {
+        id: link.id,
+        url: args.url,
+        description: args.description,
+      };
+      links[index] = updatedLink;
+      return updatedLink;
+    },
+    deleteLink: (parent, args) => {
+      const link = links.find((link) => args.id === link.id);
+      const index = links.indexOf(link);
+      links.splice(index, 1);
+      return link;
     },
   },
 };
